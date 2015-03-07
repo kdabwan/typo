@@ -141,6 +141,21 @@ class Admin::ContentController < Admin::BaseController
 
   def new_or_edit
     id = params[:id]
+    if params.has_key?(:merge_id)  # paramter is found in header
+      if !params[:merge_id].to_s.blank?  # parameter is not empty
+        if Article.exists?(params[:merge_id]) # article not found
+          article = Article.find(id)
+          article.merge(params[:merge_id])
+          set_the_flash
+          else
+            flash[:notice] = _('Article ID is not found.')  
+        end
+      else
+        flash[:notice] = _('Article ID is empty.')
+      end
+      redirect_to :action => 'index'
+      return
+    end
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
     @article.text_filter = current_user.text_filter if current_user.simple_editor?

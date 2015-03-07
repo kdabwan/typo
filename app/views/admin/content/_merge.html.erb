@@ -1,12 +1,10 @@
 
 <% if @article and @article.id %>
-<li id="merge">
-  <h3><%= _("Merge Articles")%></h3>
-  <div class='clearfix'>
-    <label ><%= _("Aricle ID")%></label>
-    <div class='input'>
-      <%= text_field , :class => 'large'  %>
-    </div>
-  </div>
-</li>
+ <h3><%= _("Merge Articles")%></h3>
+ <div  class='inputs-list' >
+    <label > <%= _("Article ID:") %>
+    	<%= number_field_tag "merge_id", nil ,:style => ' width: 5%'%>
+   </label>
+   <%= save( _("Merge")) %>
+ </div>
 <% end %>
